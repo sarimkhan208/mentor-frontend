@@ -15,7 +15,7 @@ const Signin = () => {
       e.preventDefault();
       setLoading(true)  
       const data = {email,password}
-      axios.post("http://localhost:8080/user/signin",data)
+      axios.post("https://mentor-backend-7fnt.onrender.com/user/signin",data)
       .then((res)=>{
         localStorage.setItem("mytoken",JSON.stringify(res.data.token))
         setLoading(false)
@@ -50,7 +50,7 @@ const Signin = () => {
               required
             />
           </div>
-          <button onClick={handleSignup} disabled={loading} >{loading ? 'Loading...' : 'Signin'}</button>
+          <button onClick={handleSignup} disabled={loading} >{loading?'Loading...' : 'Signin'}</button>
           <p>Register an account ? <Link to='/signup' >Signup</Link></p>
         </form>
       </div>

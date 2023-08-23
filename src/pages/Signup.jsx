@@ -16,7 +16,7 @@ const Signup = () => {
       setLoading(true)
       e.preventDefault();
       const data = {email,password,name}
-      axios.post("http://localhost:8080/user/signup",data)
+      axios.post("https://mentor-backend-7fnt.onrender.com/user/signup",data)
       .then((res)=>{
         setLoading(false)
         alert("Registered Successfull")
