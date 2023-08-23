@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import "./Signup.css"
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 
@@ -8,16 +9,27 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading,setLoading] = useState(false)
+    const navigate = useNavigate()
   
     const handleSignup = (e) => {
+      setLoading(true)
       e.preventDefault();
-      // Handle signup logic here
+      const data = {email,password,name}
+      axios.post("http://localhost:8080/user/signup",data)
+      .then((res)=>{
+        setLoading(false)
+        alert("Registered Successfull")
+        navigate('/signin');
+      })
+      .catch((err)=>console.log(err))
+      setLoading(false)
     };
   
     return (
       <div className="signup-form-container">
-        <form className="signup-form" onSubmit={handleSignup}>
-          <h2>Sign Up</h2>
+        <form className="signup-form" >
+          <h2>Sign Up Test</h2>
           <div className="input-group">
             <label htmlFor="name">Name</label>
             <input
@@ -48,7 +60,7 @@ const Signup = () => {
               required
             />
           </div>
-          <button type="submit">Sign Up</button>
+          <button onClick={handleSignup} type="submit" disabled={loading}>{loading ? 'Loading...' : 'Signup'}</button>
           <p>Already have an account ? <Link to='/signin' >Login</Link></p>
         </form>
       </div>
